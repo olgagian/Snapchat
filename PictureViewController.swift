@@ -7,29 +7,51 @@
 //
 
 import UIKit
+import Firebase
 
-class PictureViewController: UIViewController {
+class PictureViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
+    @IBOutlet weak var imageView: UIImageView!
+    
+    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var descriptionTextField: UITextField!
+    var imagePicker = UIImagePickerController()
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePicker.delegate = self
+        
 
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        imageView.image = image
+        imageView.backgroundColor = UIColor.clear
+        imagePicker.dismiss(animated: true, completion: nil)
     }
-    
 
-    /*
-    // MARK: - Navigation
+      @IBAction func cameraTapped(_ sender: Any) {
+        imagePicker.sourceType = .savedPhotosAlbum
+        imagePicker.allowsEditing = false
+        present(imagePicker, animated: true, completion: nil)
+        
+    }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    @IBAction func nextTapped(_ sender: Any) {
+        nextButton.isEnabled = false
+        let imagesFolder = FIRStorage.storage().reference().child("images")
+        let imageData = UIImageJPEGRepresentation(imageView.image!, 0.1)!
+        imagesFolder.child("images.png").put(imageData, metadata: nil, completion: {(metadata,error) in
+            print("We tried to upload")
+            if error != nil {
+                print("We had an error:\(error)")
+            }else {
+                self.performSegue(withIdentifier: "selectUsersegue", sender: nil)
+
+            }
+        })
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+     
     }
-    */
-
 }
