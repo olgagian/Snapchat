@@ -41,11 +41,13 @@ class PictureViewController: UIViewController,UIImagePickerControllerDelegate,UI
         nextButton.isEnabled = false
         let imagesFolder = FIRStorage.storage().reference().child("images")
         let imageData = UIImageJPEGRepresentation(imageView.image!, 0.1)!
-        imagesFolder.child("images.png").put(imageData, metadata: nil, completion: {(metadata,error) in
+        
+        imagesFolder.child("\(NSUUID().uuidString).jpg").put(imageData, metadata: nil, completion: {(metadata,error) in
             print("We tried to upload")
             if error != nil {
                 print("We had an error:\(error)")
             }else {
+                print(metadata?.downloadURL())
                 self.performSegue(withIdentifier: "selectUsersegue", sender: nil)
 
             }
