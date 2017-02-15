@@ -167,10 +167,10 @@
             </objects>
             <point key="canvasLocation" x="2538" y="139"/>
         </scene>
-        <!--View Controller-->
+        <!--Select User View Controller-->
         <scene sceneID="fmk-Ih-ahg">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="k0b-08-xKa" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="k0b-08-xKa" customClass="SelectUserViewController" customModule="Snapchat" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Z8s-zU-AmW"/>
                         <viewControllerLayoutGuide type="bottom" id="Y8T-2X-sl8"/>
@@ -192,6 +192,9 @@
                             <constraint firstAttribute="trailing" secondItem="O1V-3n-Vst" secondAttribute="trailing" id="onG-pd-8WH"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="O1V-3n-Vst" id="asL-Vu-nPv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="io7-CY-WbR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
